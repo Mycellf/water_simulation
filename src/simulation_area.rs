@@ -48,6 +48,22 @@ impl SimulationArea {
         Some(())
     }
 
+    pub fn swap(&mut self, position_a: Vector2<usize>, position_b: Vector2<usize>) -> Option<()> {
+        let index_a = self.get_index(position_a)?;
+        let index_b = self.get_index(position_b)?;
+
+        self.image.get_image_data_mut()[index_a] =
+            self.simulation[index_b].particle_type.get_color().into();
+        self.image.get_image_data_mut()[index_b] =
+            self.simulation[index_a].particle_type.get_color().into();
+
+        let temp = self.simulation[index_a];
+        self.simulation[index_a] = self.simulation[index_b];
+        self.simulation[index_b] = temp;
+
+        Some(())
+    }
+
     pub fn get_index(&self, position: Vector2<usize>) -> Option<usize> {
         if position.x < self.size.x && position.y < self.size.y {
             Some(position.x + position.y * self.size.x)
