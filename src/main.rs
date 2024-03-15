@@ -1,5 +1,7 @@
 use macroquad::prelude::*;
 
+pub mod simulation_area;
+
 fn window_config() -> Conf {
     Conf {
         window_title: "Water Simulation".to_owned(),
